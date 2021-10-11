@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import br.com.diolabs.childapi.enums.ParentTypeEnum;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class Parent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)    
     private Long id;
 
     @Column(nullable = false)
@@ -34,7 +35,7 @@ public class Parent {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
@@ -43,4 +44,7 @@ public class Parent {
 
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Phone> phones;
+
+    @ManyToMany(mappedBy = "parents")
+    private List<Child> children;
 }

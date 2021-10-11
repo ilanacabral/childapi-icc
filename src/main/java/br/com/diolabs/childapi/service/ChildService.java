@@ -7,13 +7,12 @@ import br.com.diolabs.childapi.dto.MessageResponseDTO;
 import br.com.diolabs.childapi.dto.ChildDTO;
 import br.com.diolabs.childapi.exception.ChildNotFoundException;
 import br.com.diolabs.childapi.mapper.ChildMapper;
-import br.com.diolabs.childapi.mapper.ParentMapper;
+
 import br.com.diolabs.childapi.model.Child;
-import br.com.diolabs.childapi.repository.ChildRepository;
-import br.com.diolabs.childapi.repository.ParentRepository;
 import br.com.diolabs.childapi.model.Parent;
+import br.com.diolabs.childapi.repository.ChildRepository;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,16 +22,19 @@ public class ChildService {
     private ChildRepository childRepository;
 
     @Autowired
-    private ParentRepository parentRepository;
-
-    @Autowired
     private ChildMapper childMapper;
 
     @Autowired
-    private ParentMapper parentMapper;
+    private ParentService parentService;
 
-    public MessageResponseDTO saveChild(ChildDTO childDTO) {       
-        Child child =  childRepository.save(childMapper.toModel(childDTO));
+    public MessageResponseDTO saveChild(ChildDTO childDTO) {
+        //Obtém PARENTS que já existem no banco             
+        List<Parent> parents = parentService.getParents(childDTO.getParents());
+        Child child =  childMapper.toModel(childDTO);
+        child.setParents(parents);
+
+        //Persiste CHILD
+        child = childRepository.save(child);
         return messageResponseDTO("Child created with ID " + child.getId());
     }
 
@@ -47,8 +49,10 @@ public class ChildService {
     }
 
     public MessageResponseDTO deleteChild(Long id) {
-        this.findChildById(id);
-        childRepository.deleteById(id);
+        ChildDTO childDTO = this.findChildById(id);  
+        //Exclui relacionamentos filhos      
+        childDTO.setParents(null);
+        childRepository.delete(childMapper.toModel(childDTO));
         return messageResponseDTO("Child with ID " + id + " deleted with success.");
     }
 

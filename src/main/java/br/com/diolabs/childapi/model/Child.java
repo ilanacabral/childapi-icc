@@ -9,8 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import javax.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +21,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Child {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id    
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)    
     private Long id;
 
     @Column(nullable = false)
@@ -34,6 +33,6 @@ public class Child {
 
     private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Parent> parents;
 }
