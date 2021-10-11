@@ -27,7 +27,7 @@ public class ChildService {
     @Autowired
     private ParentService parentService;
 
-    public MessageResponseDTO saveChild(ChildDTO childDTO) {
+    public MessageResponseDTO saveChild(ChildDTO childDTO) throws ChildAgeException{
         Child child =  childMapper.toModel(childDTO);
         
         //Valida idade da criança, máximo permitido 10 anos
@@ -60,7 +60,7 @@ public class ChildService {
         return messageResponseDTO("Child with ID " + id + " deleted with success.");
     }
 
-    public MessageResponseDTO updateChild(Long id, ChildDTO childDTO) {
+    public MessageResponseDTO updateChild(Long id, ChildDTO childDTO) throws ChildAgeException{
         this.findChildById(id);
         
 
@@ -77,7 +77,7 @@ public class ChildService {
         return MessageResponseDTO.builder().message(mensagem).build();
     }
 
-    private void ageValidate(LocalDate birthDate) {
+    private void ageValidate(LocalDate birthDate) throws ChildAgeException{
         int ageChild = Calendar.getInstance().get(Calendar.YEAR) - birthDate.getYear();
         if (ageChild>10) throw new ChildAgeException(ageChild);
     }
