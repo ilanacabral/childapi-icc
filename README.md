@@ -32,7 +32,7 @@ Links para execução do projeto usando Heroku
 * [Excluir] https://childapi-icc.herokuapp.com/api/v1/child/1
 ```
 
-Exemplo de paylod para inclusão de pessoa:
+Exemplo de paylod para inclusão de criança:
 ```
 {
     "firstName":"Andrea",
@@ -53,7 +53,7 @@ Exemplo de paylod para inclusão de pessoa:
 }
 ```
 
-Exemplo de paylod para alteração de pessoa:
+Exemplo de paylod para alteração de criança:
 ```
 {
     "id":"1",
