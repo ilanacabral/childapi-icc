@@ -40,7 +40,5 @@ public class ParentDTO {
     @Valid
     @NotEmpty
     private List<PhoneDTO> phones;
-
-    private List<ChildDTO> children;
     
 }

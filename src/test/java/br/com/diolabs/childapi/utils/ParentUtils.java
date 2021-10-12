@@ -21,8 +21,7 @@ public class ParentUtils {
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)               
                 .cpf(CPF_NUMBER)
-                .type(PARENT_TYPE)                
-               // .children(Collections.singletonList(ChildUtils.createValidFakeDTO()))
+                .type(PARENT_TYPE)                               
                 .phones(Collections.singletonList(PhoneUtils.createFakeDTO()))
                 .build();               
     }
@@ -33,8 +32,7 @@ public class ParentUtils {
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .cpf(CPF_NUMBER)      
-                .type(PARENT_TYPE) 
-                //.children(Collections.singletonList(ChildUtils.createValidFakeEntity()))            
+                .type(PARENT_TYPE)                
                 .phones(Collections.singletonList(PhoneUtils.createFakeEntity()))
                 .build();
     }
