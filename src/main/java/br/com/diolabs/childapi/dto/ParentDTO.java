@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
-
 import br.com.diolabs.childapi.enums.ParentTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,5 +40,9 @@ public class ParentDTO {
     @Valid
     @NotEmpty
     private List<PhoneDTO> phones;
+
+    @Valid
+    @NotEmpty
+    private List<ChildDTO> children;
     
 }
