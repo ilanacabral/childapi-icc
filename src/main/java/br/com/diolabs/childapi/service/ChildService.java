@@ -47,12 +47,12 @@ public class ChildService {
         return allChild.stream().map(childMapper::toDTO).collect(Collectors.toList());
     }
 
-    public ChildDTO findChildById(Long id) {
+    public ChildDTO findChildById(Long id) throws ChildNotFoundException {
         Child child = childRepository.findById(id).orElseThrow(() -> new ChildNotFoundException(id));
         return childMapper.toDTO(child);
     }
 
-    public MessageResponseDTO deleteChild(Long id) {
+    public MessageResponseDTO deleteChild(Long id) throws ChildNotFoundException {
         ChildDTO childDTO = this.findChildById(id);  
         //Exclui relacionamentos filhos      
         childDTO.setParents(null);
@@ -60,7 +60,7 @@ public class ChildService {
         return messageResponseDTO("Child with ID " + id + " deleted with success.");
     }
 
-    public MessageResponseDTO updateChild(Long id, ChildDTO childDTO) throws ChildAgeException{
+    public MessageResponseDTO updateChild(Long id, ChildDTO childDTO) throws ChildNotFoundException, ChildAgeException{
         this.findChildById(id);
         
 

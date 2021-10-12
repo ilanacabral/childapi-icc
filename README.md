@@ -55,26 +55,47 @@ Exemplo de paylod para inclusão de criança:
 
 Exemplo de paylod para alteração de criança:
 ```
-{
-    "id":"1",
-    "firstName":"Andrea",
-    "lastName":"Marinho",       
-    "birthDate":"10-10-1976",    
-    "parents":[{
-        "firstName":"Maria Atila",
-        "lastName":"Marinho",
-        "cpf":"076.185.841-50",  
-        "type":"MOTHER",
-        "phones":[{
-                "id":"1",
-                "type":"CELULAR",
-                "number":"1234567891019"
-            }]
-
-    }]
-    
-}
+    {
+        "id": 11,
+        "firstName": "Joao",
+        "lastName": "Pedrosa",
+        "birthDate": "15-08-2013",
+        "parents": [
+            {
+                "id": 2,
+                "firstName": "Karla",
+                "lastName": "Pedrosa",
+                "cpf": "331.881.331-11",
+                "type": "MOTHER",
+                "phones": [
+                    {
+                        "id": 3,
+                        "type": "HOME",
+                        "number": "1234567891019"
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "firstName": "Karlos",
+                "lastName": "Pedrosa",
+                "cpf": "069.808.366-09",
+                "type": "FATHER",
+                "phones": [
+                    {
+                        "id": 5,
+                        "type": "HOME",
+                        "number": "1234567891019"
+                    }
+                ]
+            }
+        ]
+    }
 ```
+Alguns regras de negócio : 
+
+* CPF do responsável é único. 
+* Criança com idade máxima 10 anos
 
 São necessários os seguintes pré-requisitos para a execução do projeto:
 

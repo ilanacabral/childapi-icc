@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.diolabs.childapi.exception.ChildAgeException;
+import br.com.diolabs.childapi.exception.ChildNotFoundException;
 
 import br.com.diolabs.childapi.dto.MessageResponseDTO;
 import br.com.diolabs.childapi.dto.ChildDTO;
@@ -29,7 +31,7 @@ public class ChildController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO createChild(@Valid @RequestBody ChildDTO childDTO){        
+    public MessageResponseDTO createChild(@Valid @RequestBody ChildDTO childDTO) throws ChildAgeException{        
          return childService.saveChild(childDTO);     
     }
 
@@ -41,20 +43,21 @@ public class ChildController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ChildDTO findChildById(@Valid @PathVariable Long id){
+    public ChildDTO findChildById(@Valid @PathVariable Long id) throws ChildNotFoundException{
        return  childService.findChildById(id);        
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MessageResponseDTO deleteChild(@Valid @PathVariable Long id){
+    public MessageResponseDTO deleteChild(@Valid @PathVariable Long id) throws ChildNotFoundException {
        return  childService.deleteChild(id);        
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MessageResponseDTO updateChild(@Valid @PathVariable Long id, @Valid @RequestBody ChildDTO childDTO){        
+    public MessageResponseDTO updateChild(@Valid @PathVariable Long id, @Valid @RequestBody ChildDTO childDTO) throws ChildNotFoundException, ChildAgeException{        
          return childService.updateChild(id,childDTO);     
     }
     
 }
+
